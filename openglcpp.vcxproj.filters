@@ -39,10 +39,15 @@
     <ClCompile Include="RenderTarget.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="basic_vertex.vert" />
     <None Include="basic_fragment.frag" />
+    <None Include="map_generation.frag" />
+    <None Include="map_generation.vert" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Shader.h">
@@ -73,6 +78,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GameObject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
