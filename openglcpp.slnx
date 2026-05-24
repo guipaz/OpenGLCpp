@@ -1,0 +1,7 @@
+<Solution>
+  <Configurations>
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Project Path="openglcpp.vcxproj" Id="ea3dadaf-da5d-45d1-9dfd-41715af95390" />
+</Solution>
