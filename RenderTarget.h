@@ -9,10 +9,9 @@
 class RenderTarget
 {
 public:
-	Texture* RenderedTexture;
+	std::unique_ptr<Texture> RenderedTexture;
 
 	RenderTarget(size_t width, size_t height, glm::vec4 clearColor = glm::vec4(0.0f));
-	~RenderTarget();
 
 	void beginDraw(Shader* shader);
 	void endDraw();

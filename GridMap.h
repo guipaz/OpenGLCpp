@@ -9,9 +9,16 @@
 
 struct GridMapCell
 {
-	unsigned int X;
-	float Y;
-	unsigned int Z;
+	unsigned int x;
+	float y;
+	unsigned int z;
+
+	unsigned int textureID;
+	
+	glm::vec2 textureUVA;
+	glm::vec2 textureUVB;
+	glm::vec2 textureUVC;
+	glm::vec2 textureUVD;
 
 	// y-mod of each tile corner
 	float nwModY; //  nw ._____. ne
@@ -25,14 +32,15 @@ struct GridMapCell
 class GridMap : public GameObject
 {
 public:
-	unsigned int Columns, Rows, CellSize, HeightStep;
-	GridMap(unsigned int columns, unsigned int rows, unsigned int cellSize, float heightStep);
-	void generateMesh();
-	void generateTexture();
-
+	unsigned int columns, rows;
+	float cellSize, heightStep;
+	GridMap(unsigned int columns, unsigned int rows, float cellSize, float heightStep);
+	
 private:
-	std::unique_ptr<Shader> _mapGenerationShader;
 	std::unique_ptr<Mesh> _generatedMesh;
 	std::vector<GridMapCell> _cells;
+
+	void generateMesh();
+	void generateCells();
 };
 

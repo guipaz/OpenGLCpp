@@ -6,14 +6,15 @@
 class Texture
 {
 public:
-	GLuint ID;
+	GLuint id;
+	Texture(GLuint id);
 	Texture(size_t width, size_t height);
 	Texture(const std::string& texturePath);
 	~Texture();
 	void use(GLenum activeTexture = GL_TEXTURE0);
 
 private:
-	void load_texture(const char* texturePath, GLenum format);
+	void loadTexture(const char* texturePath, GLenum format);
 	void setupGlParams();
 };
 

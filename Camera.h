@@ -3,6 +3,7 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include "Constants.h"
+#include "Ray.h"
 
 // Defines several possible options for camera movement. Used as abstraction to stay away from window-system specific input methods
 enum Camera_Movement {
@@ -15,8 +16,8 @@ enum Camera_Movement {
 };
 
 // Default camera values
-const float YAW = -90.0f;
-const float PITCH = 0.0f;
+const float YAW = 45.0f;
+const float PITCH = -45.0f;
 const float SPEED = 5.0f;
 const float SENSITIVITY = 0.1f;
 const float FOV = 45.0f;
@@ -58,7 +59,29 @@ public:
         updateCameraVectors();
     }
 
-    void use(Shader* shader)
+    Ray raycastFromScreenPosition(float screenPosX, float screenPosY)
+    {
+        // ndc
+        float x = (2.0f * screenPosX) / SCREEN_WIDTH - 1.0f;
+        float y = 1.0f - (2.0f * screenPosY) / SCREEN_HEIGHT;
+
+        // passo 1: ndc (-1.0 a 1.0)
+        glm::vec3 rayNDC(x, y, 1.0f);
+
+        // passo 2: clip space
+        glm::vec4 rayClip(rayNDC.x, rayNDC.y, -1.0f, 1.0f);
+
+        // passo 3: view space
+        glm::vec4 rayView = glm::inverse(getProjectionMatrix()) * rayClip;
+
+        // passo 4: world space
+        glm::vec3 rayWorld = glm::vec3(glm::inverse(getViewMatrix()) * rayView);
+        rayWorld = glm::normalize(rayWorld);
+
+        return { Position, rayWorld };
+    }
+
+    void applyMatrices(Shader* shader)
     {
         shader->setMat4("viewMatrix", getViewMatrix());
         shader->setMat4("projectionMatrix", getProjectionMatrix());

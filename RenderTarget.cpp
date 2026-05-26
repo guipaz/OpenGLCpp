@@ -1,7 +1,7 @@
 #include <iostream>
 #include "RenderTarget.h"
 #include "Constants.h"
-#include "MeshUtils.h"
+#include "Utils.h"
 
 RenderTarget::RenderTarget(size_t width, size_t height, glm::vec4 clearColor)
 {
@@ -9,23 +9,19 @@ RenderTarget::RenderTarget(size_t width, size_t height, glm::vec4 clearColor)
 	_height = height;
 	_clearColor = clearColor;
 
-	RenderedTexture = new Texture(width, height);
+	RenderedTexture = std::make_unique<Texture>(width, height);
 
 	glGenFramebuffers(1, &_fbo);
 	glBindFramebuffer(GL_FRAMEBUFFER, _fbo);
 
-	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, RenderedTexture->ID, 0);
+	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, RenderedTexture->id, 0);
 
 	if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
 		std::cout << "Framebuffer is not complete!" << std::endl;
 
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
-	_mesh = MeshUtils::NormalizedQuad();
-}
-
-RenderTarget::~RenderTarget()
-{
+	_mesh = Utils::createQuad();
 }
 
 void RenderTarget::beginDraw(Shader* shader)

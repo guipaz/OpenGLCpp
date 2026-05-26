@@ -154,12 +154,13 @@
     <ClCompile Include="stb_image.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Texture.cpp" />
+    <ClCompile Include="TextureArray.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="basic_fragment.frag" />
     <None Include="basic_vertex.vert" />
-    <None Include="map_generation.frag" />
-    <None Include="map_generation.vert" />
+    <None Include="map.frag" />
+    <None Include="map.vert" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
@@ -168,11 +169,13 @@
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GridMap.h" />
     <ClInclude Include="Mesh.h" />
-    <ClInclude Include="MeshUtils.h" />
+    <ClInclude Include="Ray.h" />
+    <ClInclude Include="Utils.h" />
     <ClInclude Include="RenderTarget.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="stb_image.h" />
     <ClInclude Include="Texture.h" />
+    <ClInclude Include="TextureArray.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="openglcpp\container.jpg" />

@@ -4,10 +4,10 @@
 
 using namespace glm;
 
-class MeshUtils
+class Utils
 {
 public:
-	MeshUtils() = delete;
+	Utils() = delete;
 
 	static std::unique_ptr<Mesh> CreateCube()
 	{
@@ -103,12 +103,12 @@ public:
 						 reinterpret_cast<vec2*>(_cubeUvs));
 	}
 
-	static std::unique_ptr<Mesh> NormalizedQuad()
+	static std::unique_ptr<Mesh> createQuad()
 	{
-		return Quad(glm::vec3(0, 0, 0), glm::vec3(1, 0, 0), glm::vec3(0, 0, 1), glm::vec3(1, 0, 1));
+		return createQuad(glm::vec3(0, 0, 0), glm::vec3(1, 0, 0), glm::vec3(0, 0, 1), glm::vec3(1, 0, 1));
 	}
 
-	static std::unique_ptr<Mesh> Quad(vec3 a, vec3 b, vec3 c, vec3 d)
+	static std::unique_ptr<Mesh> createQuad(vec3 a, vec3 b, vec3 c, vec3 d)
 	{
 		glm::vec3 vertices[] = { a, b, c, d };
 		unsigned int indices[] = { 0, 1, 2, 1, 3, 2 };
@@ -118,4 +118,22 @@ public:
 									  indices, 6,
 									  uvs);
 	};
+
+	static GLuint createDataTexture(const std::vector<unsigned int>& data, size_t width, size_t height)
+	{
+		GLuint texId;
+		glGenTextures(1, &texId);
+		glBindTexture(GL_TEXTURE_2D, texId);
+
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_R32UI, width, height, 0, GL_RED_INTEGER, GL_UNSIGNED_INT, data.data());
+
+		glBindTexture(GL_TEXTURE_2D, 0);
+
+		return texId;
+	}
 };

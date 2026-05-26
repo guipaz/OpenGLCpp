@@ -6,6 +6,7 @@
 #include "Mesh.h"
 #include "GridMap.h"
 #include "GameObject.h"
+#include "TextureArray.h"
 
 class Game
 {
@@ -32,10 +33,21 @@ private:
 	double _lastMouseX = SCREEN_WIDTH / 2;
 	double _lastMouseY = SCREEN_HEIGHT / 2;
 	bool _isMouseSetup = false;
+	float _mouseXoffset;
+	float _mouseYoffset;
 
 	std::unique_ptr<Mesh> _cubeMesh;
 	std::vector<std::unique_ptr<GameObject>> _gameObjects;
 
+	// map related stuff
+	std::unique_ptr<Shader> _mapShader;
 	std::unique_ptr<GridMap> _gridMap;
+	std::unique_ptr<TextureArray> _textureArray;
+	std::vector<unsigned int> _tileMap;
+	std::unique_ptr<Texture> _tileMapTexture;
+
+	GLuint _dataTextureId;
+
+	int _lastLeftMouseState;
 };
 

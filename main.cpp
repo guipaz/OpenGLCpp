@@ -23,7 +23,7 @@
 #include "Texture.h"
 #include "Mesh.h"
 #include "GridMap.h"
-#include "MeshUtils.h"
+#include "Utils.h"
 #include "Constants.h"
 #include <memory>
 #include "Game.h"
@@ -98,7 +98,7 @@ bool configureGlfw()
 		return false;
 	}
 
-	glfwSetInputMode(_window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+	glfwSetInputMode(_window, GLFW_CURSOR, GLFW_CURSOR_CAPTURED);
 	glfwSetCursorPosCallback(_window, mouse_callback);
 	glfwSetScrollCallback(_window, scroll_callback);
 	glfwSetFramebufferSizeCallback(_window, framebuffer_size_callback);

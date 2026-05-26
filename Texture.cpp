@@ -16,16 +16,21 @@ Texture::Texture(const std::string& texturePath)
 		format = GL_RGB;
 	}
 
-	load_texture(texturePath.c_str(), format);
+	loadTexture(texturePath.c_str(), format);
 	
 	setupGlParams();
 	glGenerateMipmap(GL_TEXTURE_2D);
 }
 
+Texture::Texture(GLuint id)
+{
+	this->id = id;
+}
+
 Texture::Texture(size_t width, size_t height)
 {
-	glGenTextures(1, &ID);
-	glBindTexture(GL_TEXTURE_2D, ID);
+	glGenTextures(1, &id);
+	glBindTexture(GL_TEXTURE_2D, id);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, nullptr);
 	
 	setupGlParams();
@@ -34,16 +39,16 @@ Texture::Texture(size_t width, size_t height)
 
 Texture::~Texture()
 {
-	glDeleteTextures(1, &ID);
+	glDeleteTextures(1, &id);
 }
 
 void Texture::use(GLenum activeTexture)
 {
 	glActiveTexture(activeTexture);
-	glBindTexture(GL_TEXTURE_2D, ID);
+	glBindTexture(GL_TEXTURE_2D, id);
 }
 
-void Texture::load_texture(const char* textureName, GLenum format)
+void Texture::loadTexture(const char* textureName, GLenum format)
 {
 	stbi_set_flip_vertically_on_load(true);
 
@@ -52,8 +57,8 @@ void Texture::load_texture(const char* textureName, GLenum format)
 
 	if (data)
 	{
-		glGenTextures(1, &ID);
-		glBindTexture(GL_TEXTURE_2D, ID);
+		glGenTextures(1, &id);
+		glBindTexture(GL_TEXTURE_2D, id);
 		glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, format, GL_UNSIGNED_BYTE, data);
 	}
 	else
